@@ -66,6 +66,7 @@ export default function SelectCard() {
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>Debit/Credit card</Text>
+            <Text>Hello</Text>
           </View>
         </View>
 
