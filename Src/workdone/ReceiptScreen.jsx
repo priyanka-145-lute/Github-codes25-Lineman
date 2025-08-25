@@ -8,33 +8,60 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 const ReceiptScreen = () => {
+  const navigation = useNavigation();
   const products = [
-    { id: 1, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
-    { id: 2, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
-    { id: 3, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
-    { id: 4, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
+    {
+      id: 1,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
+    {
+      id: 2,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
+    {
+      id: 3,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
+    {
+      id: 4,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+    
       <View style={styles.header}>
-        <Text style={styles.backArrow}>{'<'}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('BookingScreen')}>
+          <Icon name="chevron-back" size={24} color="#000" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Details</Text>
-       
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.card}>
-          {/* Faucet Image */}
+
           <Image
-           source={require('../assets/Tab.png')} // Replace with your image
+            source={require('../assets/Tab.png')} 
             style={styles.mainImage}
           />
 
-          {/* Service Details */}
+          
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Service Required:</Text>
             <Text style={styles.infoValue}>Plumber</Text>
@@ -44,9 +71,9 @@ const ReceiptScreen = () => {
             <Text style={styles.infoValue}>16/07/2024</Text>
           </View>
 
-          {/* Receipt Table */}
+     
           <View style={styles.receiptContainer}>
-            {/* Table Header */}
+          
             <View style={styles.tableRowHeader}>
               <Text style={styles.tableCellHeader}>#</Text>
               <Text style={styles.tableCellHeader}>Products</Text>
@@ -55,8 +82,8 @@ const ReceiptScreen = () => {
               <Text style={styles.tableCellHeader}>Amount</Text>
             </View>
 
-            {/* Product Rows */}
-            {products.map((item) => (
+         
+            {products.map(item => (
               <View key={item.id} style={styles.tableRow}>
                 <Text style={styles.tableCell}>{item.id}</Text>
                 <Text style={styles.tableCell}>{item.name}</Text>
@@ -66,10 +93,8 @@ const ReceiptScreen = () => {
               </View>
             ))}
 
-            {/* Divider */}
             <View style={styles.line} />
 
-            {/* Summary */}
             <View style={styles.summaryRow}>
               <Text style={styles.summaryLabelBold}>Final Amount</Text>
               <Text style={styles.summaryValueBold}>6,080</Text>
@@ -91,7 +116,7 @@ const ReceiptScreen = () => {
         </View>
       </ScrollView>
 
-      {/* Back Button */}
+     
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Back to Home</Text>
       </TouchableOpacity>
@@ -111,7 +136,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    
   },
   backArrow: {
     fontSize: 22,
@@ -120,7 +144,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    marginLeft:10,
+    marginLeft: 10,
   },
 
   scrollContainer: {
@@ -161,8 +185,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 12,
     borderWidth: 1,
-    borderColor:'#ccc',
-      marginTop: 16,
+    borderColor: '#ccc',
+    marginTop: 16,
   },
   tableRowHeader: {
     flexDirection: 'row',
@@ -211,7 +235,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   button: {
-    backgroundColor: '#ff3c3c',
+    backgroundColor: '#F72E42',
     paddingVertical: 14,
     borderRadius: 15,
     marginHorizontal: 10,

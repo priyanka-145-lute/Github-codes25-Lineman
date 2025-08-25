@@ -8,10 +8,11 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function CashOnDelivery() {
+export default function CashOnDelivery({ navigation }) {  
+
   const [warrantySelected, setWarrantySelected] = useState(null);
-
   const productList = [
     {
       id: 1,
@@ -47,18 +48,14 @@ export default function CashOnDelivery() {
   const workerPayment = 6000;
   const commission = 80;
 
-  const handleBackPress = () => {
-    console.log('Back pressed');
-  };
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Header */}
+      
         <View style={styles.header}>
-          <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-            <Ionicons name="chevron-back" size={24} color="black" />
-          </TouchableOpacity>
+         <TouchableOpacity onPress={() => navigation.navigate('PaymentOptionScreen')}>
+                   <Icon name="chevron-back" size={24} color="#000" />
+                 </TouchableOpacity>
           <Text style={styles.headerTitle}>Cash on delivery</Text>
         </View>
 
@@ -68,7 +65,7 @@ export default function CashOnDelivery() {
             <Ionicons
               name="home-outline"
               size={24}
-              color="#e0353d"
+              color="#F72E42"
               style={{ marginRight: 10 }}
             />
             <View>
@@ -80,9 +77,8 @@ export default function CashOnDelivery() {
             </View>
           </View>
 
-          {/* Table */}
           <View style={styles.table}>
-            {/* Header */}
+           
             <View style={[styles.tableRow, styles.tableHeaderRow]}>
               <Text style={[styles.tableHeader, { flex: 0.5 }]}>#</Text>
               <Text style={[styles.tableHeader, { flex: 3 }]}>Products</Text>
@@ -109,7 +105,6 @@ export default function CashOnDelivery() {
               </Text>
             </View>
 
-            {/* Product Rows */}
             {productList.map(item => (
               <View key={item.id} style={styles.tableRow}>
                 <Text style={[styles.tableCell, { flex: 0.5 }]}>{item.id}</Text>
@@ -132,7 +127,6 @@ export default function CashOnDelivery() {
               </View>
             ))}
 
-            {/* Summary Rows */}
             <View style={[styles.tableRow, styles.summaryRow]}>
               <Text style={styles.tableFooter}>Final Amount</Text>
               <Text style={styles.tableFooterRight}>6,080</Text>
@@ -147,7 +141,7 @@ export default function CashOnDelivery() {
             </View>
           </View>
 
-          {/* Warranty Section */}
+      
           <View style={styles.warrantyBox}>
             <Text style={styles.warrantyTitle}>
               Do you want warranty on the work?
@@ -179,7 +173,12 @@ export default function CashOnDelivery() {
                   styles.warrantyButton,
                   warrantySelected === 'yes' && styles.warrantyButtonActive,
                 ]}
-                onPress={() => setWarrantySelected('yes')}
+                onPress={() => {
+                  setWarrantySelected('yes');
+                  if (navigation) {
+                    navigation.navigate('PaymentSuccessScreen'); 
+                  }
+                }}
               >
                 <Text
                   style={[
@@ -194,7 +193,7 @@ export default function CashOnDelivery() {
           </View>
         </ScrollView>
 
-        {/* Footer */}
+       
         <View style={styles.footer}>
           <View>
             <Text style={styles.totalText}>Rs. {finalAmount}</Text>
@@ -246,7 +245,6 @@ const styles = StyleSheet.create({
   },
   tableHeader: { fontWeight: '700', fontSize: 12, paddingHorizontal: 4 },
   tableCell: { fontSize: 12, paddingHorizontal: 4 },
-  tableCellAmount: { fontSize: 12, textAlign: 'right', paddingHorizontal: 4 },
   summaryRow: {
     marginTop: 10,
     borderTopWidth: 1,
@@ -273,7 +271,7 @@ const styles = StyleSheet.create({
   warrantyButton: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#E23744',
+    borderColor: '#F72E42',
     borderRadius: 6,
     paddingVertical: 10,
     alignItems: 'center',
@@ -294,7 +292,7 @@ const styles = StyleSheet.create({
   totalText: { fontSize: 16, fontWeight: '700' },
   totalSubText: { fontSize: 13, color: '#888' },
   bookNowButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingHorizontal: 54,
     paddingVertical: 12,
     borderRadius: 6,

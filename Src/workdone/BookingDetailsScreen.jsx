@@ -8,29 +8,44 @@ import {
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function BookingDetailsScreen() {
+  const navigation = useNavigation();
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ padding: 16 }}>
-      {/* Booking Details Header - Outside Card */}
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ padding: 16 }}
+    >
+      
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backIcon}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('BookingScreen')}
+          style={styles.backIcon}
+        >
           <Icon name="chevron-back" size={24} color="#000" />
           <Text style={styles.title}>Booking Details</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Card Container */}
+      
       <View style={styles.card}>
-        {/* Booking Id inside Card */}
-        <View style={[styles.row, { borderBottomWidth: 1, borderColor: '#ccc' }]}>
+       
+        <View
+          style={[styles.row, { borderBottomWidth: 1, borderColor: '#ccc' }]}
+        >
           <Text style={styles.label}>Booking Id</Text>
           <Text style={styles.colon}>:</Text>
           <Text style={styles.value}>#125482</Text>
         </View>
 
-        {/* Worker Details */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <Text style={styles.sectionTitle}>Worker Details</Text>
           <TouchableOpacity style={styles.callButton}>
             <Text style={styles.callButtonText}>Call Worker</Text>
@@ -50,7 +65,7 @@ export default function BookingDetailsScreen() {
           </Text>
         </View>
 
-        {/* Shop Details */}
+       
         <Text style={styles.sectionTitle}>Shop Details</Text>
         <View style={styles.row}>
           <Text style={styles.label}>Shop Name</Text>
@@ -67,7 +82,9 @@ export default function BookingDetailsScreen() {
           <Text style={styles.colon}>:</Text>
           <Text style={styles.value}>+91-9876543210</Text>
         </View>
-        <View style={[styles.row, { borderBottomWidth: 1, borderColor: '#ccc' }]}>
+        <View
+          style={[styles.row, { borderBottomWidth: 1, borderColor: '#ccc' }]}
+        >
           <Text style={styles.label}>Shop Address</Text>
           <Text style={styles.colon}>:</Text>
           <Text style={styles.value}>
@@ -75,7 +92,7 @@ export default function BookingDetailsScreen() {
           </Text>
         </View>
 
-        {/* Service Details */}
+       
         <Text style={styles.sectionTitle}>Service Details</Text>
         <View style={styles.row}>
           <Text style={styles.label}>Service Required</Text>
@@ -96,7 +113,7 @@ export default function BookingDetailsScreen() {
           />
         </View>
 
-        {/* Product List Table */}
+       
         <Text style={styles.sectionTitle}>Product List</Text>
         <View style={styles.table}>
           <View style={styles.tableRowHeader}>
@@ -106,7 +123,7 @@ export default function BookingDetailsScreen() {
               Price
             </Text>
           </View>
-          {/* Rows */}
+          
           <View style={styles.tableRow}>
             <Text style={[styles.tableCell, { flex: 2 }]}>PVC Wire</Text>
             <Text style={[styles.tableCell, { flex: 2 }]}>2m</Text>
@@ -132,16 +149,32 @@ export default function BookingDetailsScreen() {
             <Text
               style={[
                 styles.tableCell,
-                { flex: 2, fontWeight: 'bold', borderTopWidth: 1, borderColor: '#ccc' },
+                {
+                  flex: 2,
+                  fontWeight: 'bold',
+                  borderTopWidth: 1,
+                  borderColor: '#ccc',
+                },
               ]}
             >
               Total
             </Text>
-            <Text style={[styles.tableCell, { flex: 2, borderTopWidth: 1, borderColor: '#ccc' }]}></Text>
             <Text
               style={[
                 styles.tableCell,
-                { flex: 1, textAlign: 'right', fontWeight: 'bold', borderTopWidth: 1, borderColor: '#ccc' },
+                { flex: 2, borderTopWidth: 1, borderColor: '#ccc' },
+              ]}
+            ></Text>
+            <Text
+              style={[
+                styles.tableCell,
+                {
+                  flex: 1,
+                  textAlign: 'right',
+                  fontWeight: 'bold',
+                  borderTopWidth: 1,
+                  borderColor: '#ccc',
+                },
               ]}
             >
               300rs
@@ -149,7 +182,7 @@ export default function BookingDetailsScreen() {
           </View>
         </View>
 
-        {/* Work Status */}
+     
         <View style={styles.workStatusRow}>
           <Text style={{ color: '#888' }}>Work Status</Text>
           <TouchableOpacity>
@@ -157,7 +190,7 @@ export default function BookingDetailsScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Payment Details */}
+        
         <Text style={styles.sectionTitle}>Payment Details</Text>
         <View style={styles.row}>
           <Text style={styles.label}>Payment Mode</Text>
@@ -182,16 +215,16 @@ export default function BookingDetailsScreen() {
           <Text style={styles.label}>Work Status</Text>
           <Text style={[styles.value, { color: '#FFCC00' }]}>Pending</Text>
         </View>
+      </View>
 
-        {/* Bottom Buttons */}
-        <View style={styles.bottomButtons}>
-          <TouchableOpacity style={styles.markNotDoneButton}>
-            <Text style={styles.markNotDoneText}>Mark Not Done</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.markDoneButton}>
-            <Text style={styles.markDoneText}>Mark Done</Text>
-          </TouchableOpacity>
-        </View>
+      
+      <View style={styles.bottomButtons}>
+        <TouchableOpacity style={styles.markNotDoneButton}>
+          <Text style={styles.markNotDoneText}>Mark Not Done</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.markDoneButton}>
+          <Text style={styles.markDoneText}>Mark Done</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -206,13 +239,13 @@ const styles = StyleSheet.create({
     marginTop: 16,
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 16,
-    // iOS shadow
+    padding: 10,
+
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.12,
     shadowRadius: 6,
-    // Android shadow
+
     elevation: 5,
   },
   header: {
@@ -259,7 +292,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   callButton: {
-    borderColor: '#E23744',
+    borderColor: '#F72E42',
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 16,
@@ -268,7 +301,7 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   callButtonText: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '700',
   },
   photo: {
@@ -307,7 +340,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   workStatusLink: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '700',
   },
   bottomButtons: {
@@ -317,21 +350,21 @@ const styles = StyleSheet.create({
   },
   markNotDoneButton: {
     borderWidth: 1,
-    borderColor: '#E23744',
-    borderRadius: 20,
+    borderColor: '#F72E42',
+    borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 30,
     flex: 1,
     marginRight: 10,
   },
   markNotDoneText: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '700',
     textAlign: 'center',
   },
   markDoneButton: {
-    backgroundColor: '#E23744',
-    borderRadius: 20,
+    backgroundColor: '#F72E42',
+    borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 30,
     flex: 1,

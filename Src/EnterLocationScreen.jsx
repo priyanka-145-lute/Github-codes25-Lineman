@@ -9,8 +9,12 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 export default function EnterYourLocationScreen() {
+    const navigation = useNavigation();
   const handleBack = () => {
     console.log('Back button pressed');
   };
@@ -25,50 +29,52 @@ export default function EnterYourLocationScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+   
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack}>
-          <Ionicons name="chevron-back" size={22} color="#000" />
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Icon name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Enter your location</Text>
       </View>
 
       <ScrollView contentContainerStyle={{ padding: 16 }}>
-        {/* Address Options */}
+        
         <View style={styles.addressOptionsCard}>
           <TouchableOpacity style={styles.optionRow} onPress={handleAddAddress}>
             <View style={styles.optionContent}>
-              <MaterialIcons name="add" size={20} color="#e0353d" />
+              <MaterialIcons name="add" size={20} color="#F72E42" />
               <Text style={styles.optionText}>Add Address</Text>
             </View>
           </TouchableOpacity>
 
           <View style={styles.separator} />
 
-          <TouchableOpacity style={styles.optionRow} onPress={handleUseCurrentLocation}>
+          <TouchableOpacity
+            style={styles.optionRow}
+            onPress={handleUseCurrentLocation}
+          >
             <View style={styles.optionContent}>
-              <Ionicons name="locate" size={20} color="#e0353d" />
+              <Ionicons name="locate" size={20} color="#F72E42" />
               <Text style={styles.optionText}>Use your current location</Text>
             </View>
           </TouchableOpacity>
         </View>
 
-        {/* Saved Address */}
+      
         <Text style={styles.savedTitle}>Saved Address</Text>
         <View style={styles.savedCard}>
           <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
             <Ionicons
               name="home-outline"
               size={20}
-              color="#E23744"
+              color="#F72E42"
               style={{ marginTop: 3, marginRight: 10 }}
             />
             <View>
               <Text style={styles.savedLabel}>Home</Text>
               <Text style={styles.savedDetails}>
                 127 North Stt. Suite 420, Carrington NC 27601.
-            
-                {"\n"}Phone: 919–555–3333
+                {'\n'}Phone: 919–555–3333
               </Text>
             </View>
           </View>
@@ -125,10 +131,10 @@ const styles = StyleSheet.create({
   },
   savedTitle: {
     fontSize: 16,
-    bottom:15,
+    bottom: 15,
 
     fontWeight: '600',
-    color: '#E23744',
+    color: '#F72E42',
     marginBottom: 10,
     textAlign: 'center',
   },

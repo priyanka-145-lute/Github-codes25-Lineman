@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View,
@@ -10,28 +11,29 @@ import {
   Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 export default function ProfileScreen() {
+  const navigation=useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleLogoutConfirm = () => {
     setModalVisible(false);
-    // Add your logout logic here
+ 
  
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        {/* Header */}
+       
         <View style={styles.header}>
-          <TouchableOpacity>
-            <Ionicons name="chevron-back" size={24} color="#000" />
-          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                   <Icon name="chevron-back" size={24} color="#000" />
+                 </TouchableOpacity>
           <Text style={styles.headerTitle}>Profile</Text>
         </View>
 
-        {/* Avatar & Name */}
+        
         <View style={styles.avatarContainer}>
           <Image
             source={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
@@ -40,7 +42,7 @@ export default function ProfileScreen() {
           <Text style={styles.username}>John Doe</Text>
         </View>
 
-        {/* Section: Your Profile */}
+     
         <View style={styles.card}>
           <View style={styles.sectionTitleContainer}>
             <View style={styles.vectorLine} />
@@ -48,14 +50,18 @@ export default function ProfileScreen() {
           </View>
           <TouchableOpacity style={styles.row}>
             <View style={styles.rowContent}>
-              <Ionicons name="person-circle-outline" size={22} color="#e0353d" />
+                  
+              <Ionicons name="person-circle-outline" size={22} color="#F72E42" />
+             
               <Text style={styles.rowText}>View your profile</Text>
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate('ViewProfile')}>
             <Ionicons name="chevron-forward" size={20} color="#ccc" />
+             </TouchableOpacity>
           </TouchableOpacity>
         </View>
 
-        {/* Section: Orders */}
+       
         <View style={styles.card}>
           <View style={styles.sectionTitleContainer}>
             <View style={styles.vectorLine} />
@@ -63,14 +69,17 @@ export default function ProfileScreen() {
           </View>
           <TouchableOpacity style={styles.row}>
             <View style={styles.rowContent}>
-              <Ionicons name="receipt-outline" size={20} color="#E23744" />
+              
+             <Ionicons name="reader-outline" size={24} color="#F72E42" />
               <Text style={styles.rowText}>My Bookings</Text>
             </View>
+              <TouchableOpacity onPress={() => navigation.navigate('BookingScreen')}>
             <Ionicons name="chevron-forward" size={20} color="#ccc" />
+          </TouchableOpacity>
           </TouchableOpacity>
         </View>
 
-        {/* Section: My Balance */}
+        
         <View style={styles.card}>
           <View style={styles.sectionTitleContainer}>
             <View style={styles.vectorLine} />
@@ -78,13 +87,13 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.row}>
             <View style={styles.rowContent}>
-              <Ionicons name="wallet-outline" size={20} color="#e0353d" />
+              <Ionicons name="wallet-outline" size={20} color="#F72E42" />
               <Text style={styles.rowText}>Rs.1200</Text>
             </View>
           </View>
         </View>
 
-        {/* Logout Button */}
+       
         <TouchableOpacity
           style={styles.logoutButton}
           onPress={() => setModalVisible(true)}
@@ -99,7 +108,7 @@ export default function ProfileScreen() {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Logout Confirmation Modal */}
+     
       <Modal
         transparent={true}
         visible={modalVisible}
@@ -186,7 +195,7 @@ const styles = StyleSheet.create({
   vectorLine: {
     width: 2,
     height: 30,
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     borderRadius: 2,
     marginRight: 8,
   },
@@ -211,7 +220,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   logoutButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -225,8 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 
-  // Modal styles
-  modalOverlay: {
+    modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.3)',
     justifyContent: 'center',
@@ -246,7 +254,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   modalIconContainer: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     borderRadius: 50,
     padding: 20,
     marginBottom: 20,
@@ -262,7 +270,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   confirmButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 10,
     paddingHorizontal: 25,
     borderRadius: 6,
@@ -274,14 +282,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   cancelButton: {
-    borderColor: '#E23744',
+    borderColor: '#F72E42',
     borderWidth: 1,
     paddingVertical: 10,
     paddingHorizontal: 25,
     borderRadius: 6,
   },
   cancelButtonText: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '600',
     fontSize: 15,
   },

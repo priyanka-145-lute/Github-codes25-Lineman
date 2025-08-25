@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View,
@@ -11,6 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const products = [
   {
@@ -33,7 +35,8 @@ const products = [
     id: '3',
     title: 'Drain Cover',
     stock: true,
-    description: 'Johnson Bathrooms Ruby 5*5 inches Square Floor Drain with Hole',
+    description:
+      'Johnson Bathrooms Ruby 5*5 inches Square Floor Drain with Hole',
     price: '299',
     image: require('../assets/Painter3.png'),
   },
@@ -41,18 +44,20 @@ const products = [
     id: '4',
     title: 'Tap',
     stock: true,
-    description: 'Hindware Volga Bilb Tap for Bathroom,Brass with Chrome Finish ',
+    description:
+      'Hindware Volga Bilb Tap for Bathroom,Brass with Chrome Finish ',
     price: '839',
     image: require('../assets/Painter1.png'),
   },
 ];
 
 const BookPainter = () => {
+  const navigation = useNavigation();
   const [quantities, setQuantities] = useState(
     products.reduce((acc, item) => {
       acc[item.id] = 0;
       return acc;
-    }, {})
+    }, {}),
   );
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -72,15 +77,22 @@ const BookPainter = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+    
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={22} color="#000" />
-        <Text style={styles.headerText}>Book a Painter</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Icon name="chevron-back" size={24} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Book an Painter</Text>
       </View>
 
-      {/* Search */}
+    
       <View style={styles.searchBar}>
-        <Ionicons name="search-outline" size={18} color="#F72E42" style={{ marginRight: 8 }} />
+        <Ionicons
+          name="search-outline"
+          size={18}
+          color="#F72E42"
+          style={{ marginRight: 8 }}
+        />
         <TextInput
           placeholder="Search for Painter,POP"
           placeholderTextColor="#999"
@@ -88,7 +100,7 @@ const BookPainter = () => {
         />
       </View>
 
-      {/* Toggle Buttons */}
+    
       <View style={styles.toggleButtonsContainer}>
         <TouchableOpacity
           style={[
@@ -125,21 +137,36 @@ const BookPainter = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Note */}
-      <Text style={styles.note}>Note : Worker will be available for 1 hour only</Text>
+     
+      <Text style={styles.note}>
+        Note : Worker will be available for 1 hour only
+      </Text>
 
-      {/* Scrollable Product List */}
-      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+      
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.cardContainer}>
-          <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}
+          >
             {products.map(item => (
               <View key={item.id} style={styles.productRow}>
                 <View style={styles.leftSection}>
                   <Text style={styles.productTitle}>{item.title}</Text>
-                  <Text style={[styles.stockText, { color: item.stock ? 'green' : 'red' }]}>
+                  <Text
+                    style={[
+                      styles.stockText,
+                      { color: item.stock ? 'green' : '#' },
+                    ]}
+                  >
                     {item.stock ? 'In stock' : 'Out of stock'}
                   </Text>
-                  {item.description && <Text style={styles.productDesc}>{item.description}</Text>}
+                  {item.description && (
+                    <Text style={styles.productDesc}>{item.description}</Text>
+                  )}
                   <Text style={styles.productPrice}>Rs.{item.price}</Text>
                 </View>
 
@@ -147,14 +174,16 @@ const BookPainter = () => {
                   <View
                     style={[
                       styles.imageButtonContainer,
-                      (item.id === '2' || item.id === '3') && styles.fullImageContainer,
+                      (item.id === '2' || item.id === '3') &&
+                        styles.fullImageContainer,
                     ]}
                   >
                     <Image
                       source={item.image}
                       style={[
                         styles.productImage,
-                        (item.id === '2' || item.id === '3') && styles.fullProductImage,
+                        (item.id === '2' || item.id === '3') &&
+                          styles.fullProductImage,
                       ]}
                     />
                     <View style={styles.buttonWrapper}>
@@ -167,11 +196,19 @@ const BookPainter = () => {
                         </TouchableOpacity>
                       ) : (
                         <View style={styles.qtyWrapper}>
-                          <TouchableOpacity onPress={() => decrement(item.id)} style={styles.qtyBtn}>
+                          <TouchableOpacity
+                            onPress={() => decrement(item.id)}
+                            style={styles.qtyBtn}
+                          >
                             <Text style={styles.qtyText}>-</Text>
                           </TouchableOpacity>
-                          <Text style={styles.qtyCount}>{quantities[item.id]}</Text>
-                          <TouchableOpacity onPress={() => increment(item.id)} style={styles.qtyBtn}>
+                          <Text style={styles.qtyCount}>
+                            {quantities[item.id]}
+                          </Text>
+                          <TouchableOpacity
+                            onPress={() => increment(item.id)}
+                            style={styles.qtyBtn}
+                          >
                             <Text style={styles.qtyText}>+</Text>
                           </TouchableOpacity>
                         </View>
@@ -185,13 +222,18 @@ const BookPainter = () => {
         </View>
       </ScrollView>
 
-      {/* Modal for Upload Prompt */}
-      <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+      
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalBox}>
             <View style={styles.dashedBox}>
               <View style={styles.plusCircle}>
-                <Ionicons name="add" size={30} color="#004d40" />
+                <Ionicons name="add" size={30} color="black" />
               </View>
               <Text style={styles.modalText}>Add Image of Issue</Text>
               <TouchableOpacity
@@ -209,8 +251,13 @@ const BookPainter = () => {
         </View>
       </Modal>
 
-      {/* Modal for Upload Image */}
-      <Modal animationType="slide" transparent={true} visible={uploadModalVisible} onRequestClose={() => setUploadModalVisible(false)}>
+    
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={uploadModalVisible}
+        onRequestClose={() => setUploadModalVisible(false)}
+      >
         <View style={styles.modalOverlay}>
           <View style={[styles.modalBox, { height: 300 }]}>
             <Image
@@ -220,24 +267,51 @@ const BookPainter = () => {
             />
             <View style={styles.buttonRow}>
               <TouchableOpacity
-                style={[styles.uploadButton1, { backgroundColor: '#fff', borderWidth: 1, borderColor: '#F72E42', flex: 1, marginRight: 10 }]}
-                onPress={() => {}}
+                style={[
+                  styles.uploadButton1,
+                  {
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    borderColor: '#F72E42',
+                    flex: 1,
+                    marginRight: 10,
+                  },
+                ]}
+                onPress={() => {
+                  setUploadModalVisible(false); 
+                }}
               >
                 <Text style={styles.uploadButtonText1}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.uploadButton1, { backgroundColor: '#dd1a1a', borderWidth: 1, borderColor: '#F72E42', flex: 1 }]}
-                onPress={() => setUploadModalVisible(false)}
+                style={[
+                  styles.uploadButton1,
+                  {
+                    backgroundColor: '#F72E42',
+                    borderWidth: 1,
+                    borderColor: '#F72E42',
+                    flex: 1,
+                  },
+                ]}
+                onPress={() => {
+                  setUploadModalVisible(false);
+                  navigation.navigate('ProductReceiptScreen');
+                }}
               >
-                <Text style={[styles.uploadButtonText, { color: '#fff' }]}>Continue</Text>
+                <Text style={[styles.uploadButtonText, { color: '#fff' }]}>
+                  Continue
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
       </Modal>
 
-      {/* Book Now Button */}
-      <TouchableOpacity style={styles.bookButton} onPress={() => setModalVisible(true)}>
+    
+      <TouchableOpacity
+        style={styles.bookButton}
+        onPress={() => setModalVisible(true)}
+      >
         <Text style={styles.bookButtonText}>Book now</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -461,7 +535,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: '#004d40',
+    borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -469,7 +543,7 @@ const styles = StyleSheet.create({
 
   modalText: {
     fontSize: 16,
-    color: '#004d40',
+    color: 'black',
   },
 
   uploadButton: {

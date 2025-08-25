@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState, useRef } from 'react';
 import {
   View,
@@ -21,7 +22,7 @@ export default function EditProfileScreen() {
   const [gender, setGender] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
-
+  const Navigation = useNavigation();
   const genderRef = useRef(null);
 
   const genderOptions = ['Male', 'Female', 'Other'];
@@ -33,7 +34,7 @@ export default function EditProfileScreen() {
     });
   };
 
-  const selectGender = (value) => {
+  const selectGender = value => {
     setGender(value);
     setShowDropdown(false);
   };
@@ -41,13 +42,13 @@ export default function EditProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        {/* Header */}
+       
         <View style={styles.header}>
           <Ionicons name="chevron-back" size={22} color="#000" />
           <Text style={styles.headerTitle}>Your Profile</Text>
         </View>
 
-        {/* Profile Image */}
+       
         <View style={styles.avatarContainer}>
           <Image
             source={require('../../Src/assets/Profile.webp')}
@@ -58,7 +59,7 @@ export default function EditProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Form */}
+      
         <View style={styles.formContainer}>
           <Text style={styles.label}>Full Name</Text>
           <TextInput
@@ -97,13 +98,16 @@ export default function EditProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Update Button */}
-        <TouchableOpacity style={styles.updateButton}>
+       
+        <TouchableOpacity
+          onPress={() => Navigation.navigate('ViewProfile')}
+          style={styles.updateButton}
+        >
           <Text style={styles.updateButtonText}>Update profile</Text>
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Floating Dropdown List */}
+      
       {showDropdown && (
         <TouchableOpacity
           style={styles.overlay}
@@ -120,7 +124,7 @@ export default function EditProfileScreen() {
               },
             ]}
           >
-            {genderOptions.map((item) => (
+            {genderOptions.map(item => (
               <TouchableOpacity
                 key={item}
                 onPress={() => selectGender(item)}
@@ -165,7 +169,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 150,
     bottom: 10,
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     borderRadius: 10,
     padding: 3,
   },
@@ -201,7 +205,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   updateButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     marginHorizontal: 20,
     marginTop: '45%',
     paddingVertical: 14,
@@ -234,6 +238,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
-    
   },
 });

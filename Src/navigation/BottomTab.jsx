@@ -20,8 +20,7 @@ const BottomTab = () => {
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        // tabBarShowLabel: false,
-        // tabBarStyle: {paddingTop: 5},
+        
       }}>
       <Tab.Screen
         name="Home"

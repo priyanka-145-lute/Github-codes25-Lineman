@@ -17,8 +17,9 @@ const LoginScreen = () => {
 
   const handleContinue = () => {
     navigation.navigate('OtpScreen')
-    // TODO: Add email/phone validation and API call
+    
     console.log('Submitted:', email);
+
   };
 
   return (
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',

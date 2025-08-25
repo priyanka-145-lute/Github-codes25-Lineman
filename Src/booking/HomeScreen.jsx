@@ -7,175 +7,297 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
 } from 'react-native';
-
-// import { Ionicons } from '@react-native-vector-icons/ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import Entypo from 'react-native-vector-icons/Entypo';
+
 const HomeScreen = () => {
+  const navigation = useNavigation();
   return (
-    // <SafeAreaView style={styles.container}>
-    <>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        {/* Header Section */}
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#F72E42" />
+
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+       
         <View style={styles.header}>
           <View style={styles.headerTop}>
-            <Text style={styles.time}>9:30</Text>
-            <View style={styles.rightIcons}>
-              <View style={styles.circle} />
-              <Ionicons
-                name="wifi-outline"
-                size={18}
-                color="#fff"
-                style={{ marginLeft: 8 }}
-              />
-              {/* <Ionicons
-                name="battery-half-outline"
-                size={18}
-                color="#fff"
-                style={{ marginLeft: 8 }}
-              /> */}
+            <View style={styles.locationContainer}>
+              <MaterialIcons name="location-on" size={20} color="#fff" />
+              <View style={styles.locationTextWrapper}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.locationText}>Home</Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('EnterLocationScreen')}
+                  >
+                    <Entypo name="chevron-small-down" size={24} color="#fff" />
+                  </TouchableOpacity>
+                </View>
+                <Text
+                  style={styles.addressText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
+                  North Society, A-102 Floor, Carrington NC 27……
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ProfileScreen')}
+            >
               <Image
-                source={{ uri: 'https://i.pravatar.cc/100' }}
-                style={styles.profile}
+                source={{
+                  uri: 'https://randomuser.me/api/portraits/men/75.jpg',
+                }}
+                style={styles.profileImage}
+              />
+            </TouchableOpacity>
+          </View>
+
+          
+          <View style={styles.banner}>
+            <Text style={styles.bannerText}>
+              From{'\n'}electricians to{'\n'}painters{'\n'}just tap to book!
+            </Text>
+
+            <View style={styles.imageWrapper}>
+              <Image
+                source={require('../assets/Home1.png')}
+                style={[styles.bannerImage, styles.smallImage]}
+              />
+              <Image
+                source={require('../assets/Home2.png')}
+                style={[styles.bannerImage, styles.largeImage]}
               />
             </View>
           </View>
-
-          <View style={styles.locationRow}>
-            <Ionicons name="location-sharp" size={16} color="#fff" />
-            <Text style={styles.locationText}>Home</Text>
-            {/* <Ionicons
-              name="chevron-down"
-              size={14}
-              color="#fff"
-              style={{ marginLeft: 4 }}
-            /> */}
-          </View>
-          <Text style={styles.address}>
-            North Society, A-102 Floor, Carrington NC 27...
-          </Text>
-
-          <Text style={styles.headerText}>
-            From{'\n'}
-            <Text style={{ fontWeight: 'bold' }}>
-              electricians to{'\n'}painters
-            </Text>
-            {'\n'}just tap to book!
-          </Text>
-
-          <Image
-            source={{
-              uri: 'https://cdn-icons-png.flaticon.com/512/8370/8370008.png',
-            }}
-            style={styles.headerImage}
-          />
         </View>
 
-        {/* Services */}
+      
         <View style={styles.servicesContainer}>
           <Text style={styles.sectionTitle}>Explore Services</Text>
-          <View style={styles.servicesGrid}>
-            <TouchableOpacity style={styles.serviceBox}>
+          <View style={styles.serviceGrid}>
+            <TouchableOpacity
+              style={[styles.serviceCard, { width: '47%' }]}
+              onPress={() => navigation.navigate('BookElectrician')}
+            >
               <Text style={styles.serviceText}>Electrician</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceBox}>
+
+            <TouchableOpacity
+              style={[styles.serviceCard, { width: '47%' }]}
+              onPress={() => navigation.navigate('BookPainter')}
+            >
               <Text style={styles.serviceText}>Painting</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceBox}>
+
+            <TouchableOpacity
+              style={[styles.serviceCard, { width: '47%' }]}
+              onPress={() => navigation.navigate('BookPlumber')}
+            >
               <Text style={styles.serviceText}>Plumbing</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceBox}>
+
+            <TouchableOpacity
+              style={[styles.serviceCard, { width: '47%' }]}
+              onPress={() => navigation.navigate('BookTiler')}
+            >
               <Text style={styles.serviceText}>Tiles Fitting</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.serviceBox, { width: '100%' }]}>
+
+            <TouchableOpacity
+              style={[styles.serviceCard, { width: '100%' }]}
+              onPress={() => navigation.navigate('BookACRepair')}
+            >
               <Text style={styles.serviceText}>AC / Refrigerator Repair</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
 
-     
-    </>
-    // </SafeAreaView>
+      
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem}>
+          <MaterialIcons name="home" size={24} color="#D32F2F" />
+          <Text style={styles.activeNav}>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            
+            navigation.navigate('BookingScreen'); 
+          }}
+          style={styles.navItem}
+        >
+          <Ionicons name="reader-outline" size={24} color="#999" />
+          <Text style={styles.inactiveNav}>Bookings</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
+export default HomeScreen;
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  header: {
-    backgroundColor: '#E53935',
-    borderBottomLeftRadius: 60,
-    padding: 16,
-    position: 'relative',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
+
+  header: {
+    backgroundColor: '#F72E42',
+    borderBottomLeftRadius: 100,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+
   headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  time: { color: '#fff', fontSize: 14, fontWeight: '500' },
-  rightIcons: { flexDirection: 'row', alignItems: 'center' },
-  circle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#fff',
+
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
   },
-  profile: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    marginLeft: 10,
+
+  locationTextWrapper: {
+    marginLeft: 5,
+    flex: 1,
   },
-  locationRow: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
+
   locationText: {
     color: '#fff',
     fontSize: 16,
-    marginLeft: 4,
-    fontWeight: '500',
+    fontWeight: '600',
   },
-  address: { color: '#fff', fontSize: 12, marginTop: 4 },
-  headerText: {
+
+  addressText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 12,
+    marginTop: 2,
+  },
+
+  profileImage: {
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
+    backgroundColor: '#fff',
+  },
+
+  banner: {
     marginTop: 20,
+    position: 'relative',
+    paddingBottom: 0,
+  },
+
+  bannerText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
     lineHeight: 26,
+    marginLeft: 20,
+    marginBottom: 30,
   },
-  headerImage: {
-    width: 90,
-    height: 90,
+
+  imageWrapper: {
     position: 'absolute',
-    bottom: 10,
     right: 20,
+    bottom: 0,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
-  servicesContainer: { padding: 16 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 12 },
-  servicesGrid: {
+
+  bannerImage: {
+    resizeMode: 'contain',
+  },
+
+  smallImage: {
+    width: 200,
+    height: 180,
+    marginRight: -143,
+    marginBottom: -40,
+  },
+
+  largeImage: {
+    width: 200,
+    height: 180,
+    marginBottom: -65,
+    marginRight: -90,
+  },
+
+  servicesContainer: {
+    marginTop: 45,
+    paddingHorizontal: 20,
+  },
+
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    marginBottom: 20,
+  },
+
+  serviceGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  serviceBox: {
-    width: '48%',
-    height: 70,
+
+  serviceCard: {
     borderWidth: 1,
-    borderColor: '#E53935',
+    borderColor: '#F72E42',
     borderRadius: 12,
-    marginBottom: 12,
+    paddingVertical: 40,
+    marginBottom: 15,
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  serviceText: { fontSize: 14, color: '#000' },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
-    paddingVertical: 8,
     backgroundColor: '#fff',
   },
-  navItem: { alignItems: 'center' },
-  navText: { fontSize: 12, color: '#333', marginTop: 2 },
-});
 
-export default HomeScreen;
+  serviceText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+    textAlign: 'center',
+  },
+
+  bottomNav: {
+    position: 'absolute',
+    bottom: 30,
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+    paddingHorizontal: 8,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+
+  navItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  activeNav: {
+    color: '#F72E42',
+    fontWeight: '700',
+    fontSize: 18,
+    marginLeft: 6,
+    textTransform: 'capitalize',
+  },
+
+  inactiveNav: {
+    color: '#999',
+    fontSize: 18,
+    marginLeft: 6,
+    textTransform: 'capitalize',
+  },
+});

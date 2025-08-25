@@ -11,6 +11,9 @@ import {
   Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { useNavigation } from '@react-navigation/native';
 
 export default function ViewProfile() {
   const [name] = useState('Nirajkumar Kalantri');
@@ -18,34 +21,33 @@ export default function ViewProfile() {
   const [address] = useState('1901 Horridge Cir. Shiloh, Hawaii 81063');
   const [gender] = useState('Male');
   const [showModal, setShowModal] = useState(false);
-
+  const navigation = useNavigation();
   const handleDelete = () => {
     setShowModal(false);
- 
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        {/* Header */}
+       
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => alert('Back pressed')}>
-            <Ionicons name="chevron-back" size={24} color="#000" />
+          <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
+            <Icon name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Your Profile</Text>
         </View>
 
-        {/* Profile Card */}
+     
         <View style={styles.card}>
           <Text style={styles.profileTitle}>Profile</Text>
 
-          {/* Avatar */}
+
           <Image
             source={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
             style={styles.avatar}
           />
 
-          {/* Input Fields (Read-Only) */}
+        
           <View style={styles.field}>
             <Text style={styles.label}>Full Name</Text>
             <TextInput style={styles.input} value={name} editable={false} />
@@ -66,26 +68,26 @@ export default function ViewProfile() {
             <TextInput style={styles.input} value={gender} editable={false} />
           </View>
 
-          {/* Delete Account Button */}
+          
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => setShowModal(true)}
           >
-            <Ionicons name="trash" size={16} color="#E23744" />
+            <Ionicons name="trash" size={16} color="#F72E42" />
             <Text style={styles.deleteText}>Delete Account</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Edit Profile Button */}
+        
         <TouchableOpacity
           style={styles.editButton}
-          onPress={() => alert('Edit profile')}
+          onPress={() => navigation.navigate('EditProfileScreen')}
         >
           <Text style={styles.editButtonText}>Edit profile</Text>
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Confirmation Modal */}
+      
       <Modal
         animationType="fade"
         transparent={true}
@@ -134,7 +136,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     elevation: 1,
   },
-  profileTitle: { textAlign: 'center', fontSize: 18, fontWeight: '700', marginBottom: 10 },
+  profileTitle: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 10,
+  },
   avatar: {
     width: 90,
     height: 90,
@@ -156,9 +163,9 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   deleteButton: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
-  deleteText: { marginLeft: 6, color: '#E23744', fontWeight: '600' },
+  deleteText: { marginLeft: 6, color: '#F72E42', fontWeight: '600' },
   editButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
@@ -166,7 +173,7 @@ const styles = StyleSheet.create({
   },
   editButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
 
-  // Modal styles
+
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.6)',
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalIcon: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     borderRadius: 50,
     padding: 14,
     marginBottom: 16,
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   modalDeleteBtn: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -211,7 +218,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalCancelBtn: {
-    borderColor: '#E23744',
+    borderColor: '#F72E42',
     borderWidth: 1.5,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -220,7 +227,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   modalCancelText: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '600',
     textAlign: 'center',
   },

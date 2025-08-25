@@ -8,44 +8,45 @@ import {
   Image,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function PaymentSuccessScreen({ navigation }) {
-  const [viewClicked, setViewClicked] = useState(false); // <-- Track click
+  const [viewClicked, setViewClicked] = useState(false); 
 
   const handleClose = () => {
     console.log('Closed');
-    // navigation.goBack();
+  
   };
 
   const handleBackToHome = () => {
     console.log('Back to Home');
-    // navigation.navigate('Home');
+   
   };
 
   const handleViewOrder = () => {
-    setViewClicked(true); // <-- Set clicked state
+    setViewClicked(true); 
     console.log('View Order');
-    // navigation.navigate('Order');
+   
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Close Button */}
+    
       <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
         <Ionicons name="close" size={24} color="#000" />
       </TouchableOpacity>
 
-      {/* Success Image */}
+     
       <Image
-        source={require('../Src/assets/Payment.png')}
+        source={require('../assets/Payment.png')}
         style={styles.successImage}
         resizeMode="contain"
       />
 
-      {/* Message */}
+      
       <Text style={styles.message}>Payment has completed successfully</Text>
 
-      {/* Footer Buttons */}
+     
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButton} onPress={handleBackToHome}>
           <Text style={styles.backButtonText}>Back to Home</Text>
@@ -54,14 +55,14 @@ export default function PaymentSuccessScreen({ navigation }) {
         <TouchableOpacity
           style={[
             styles.viewButton,
-            viewClicked && styles.viewButtonClicked, // apply clicked style
+            viewClicked && styles.viewButtonClicked, 
           ]}
           onPress={handleViewOrder}
         >
           <Text
             style={[
               styles.viewButtonText,
-              viewClicked && styles.viewButtonTextClicked, // change text color
+              viewClicked && styles.viewButtonTextClicked, 
             ]}
           >
             View order
@@ -107,19 +108,19 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 5,
     borderWidth: 1,
-    borderColor: '#E23744',
+    borderColor: '#F72E42',
     paddingVertical: 12,
     borderRadius: 6,
     alignItems: 'center',
   },
   backButtonText: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '600',
   },
   viewButton: {
     flex: 1,
     marginLeft: 5,
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 12,
     borderRadius: 6,
     alignItems: 'center',
@@ -134,6 +135,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   viewButtonTextClicked: {
-    color: '#E23744',
+    color: '#F72E42',
   },
 });

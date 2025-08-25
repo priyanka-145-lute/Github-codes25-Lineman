@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View,
@@ -11,7 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 const products = [
   {
     id: '1',
@@ -48,6 +49,7 @@ const products = [
 ];
 
 const BookPlumber = () => {
+  const navigation=useNavigation()
   const [quantities, setQuantities] = useState(
     products.reduce((acc, item) => {
       acc[item.id] = 0;
@@ -57,7 +59,7 @@ const BookPlumber = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [uploadModalVisible, setUploadModalVisible] = useState(false);
-  const [selectedButton, setSelectedButton] = useState(null); // NEW STATE
+  const [selectedButton, setSelectedButton] = useState(null);
 
   const increment = id => {
     setQuantities(prev => ({ ...prev, [id]: prev[id] + 1 }));
@@ -72,13 +74,15 @@ const BookPlumber = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+    
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={22} color="#000" />
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                 <Icon name="chevron-back" size={24} color="#000" />
+               </TouchableOpacity>
         <Text style={styles.headerText}>Book an Plumber</Text>
       </View>
 
-      {/* Search */}
+     
       <View style={styles.searchBar}>
         <Ionicons
           name="search-outline"
@@ -93,7 +97,7 @@ const BookPlumber = () => {
         />
       </View>
 
-      {/* NEW TOGGLE BUTTONS BELOW SEARCH */}
+    
       <View style={styles.toggleButtonsContainer}>
         <TouchableOpacity
           style={[
@@ -130,12 +134,12 @@ const BookPlumber = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Note */}
+    
       <Text style={styles.note}>
         Note : Worker will be available for 1 hour only
       </Text>
 
-      {/* Scrollable content including card */}
+      
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
@@ -146,7 +150,7 @@ const BookPlumber = () => {
               <View key={item.id} style={styles.productRow}>
                 <View style={styles.leftSection}>
                   <Text style={styles.productTitle}>{item.title}</Text>
-                  <Text style={[styles.stockText, { color: item.stock ? 'green' : 'red' }]}>
+                  <Text style={[styles.stockText, { color: item.stock ? 'green' : '#F72E42' }]}>
                     {item.stock ? 'In stock' : 'Out of stock'}
                   </Text>
                   {item.description ? (
@@ -192,7 +196,7 @@ const BookPlumber = () => {
         </View>
       </ScrollView>
 
-      {/* First Modal */}
+  
       <Modal
         animationType="fade"
         transparent={true}
@@ -203,7 +207,7 @@ const BookPlumber = () => {
           <View style={styles.modalBox}>
             <View style={styles.dashedBox}>
               <View style={styles.plusCircle}>
-                <Ionicons name="add" size={30} color="#004d40" />
+                <Ionicons name="add" size={30} color="black" />
               </View>
               <Text style={styles.modalText}>Add Image of Issue</Text>
               <TouchableOpacity
@@ -221,7 +225,7 @@ const BookPlumber = () => {
         </View>
       </Modal>
 
-      {/* Second Modal for Upload */}
+     
       <Modal
         animationType="slide"
         transparent={true}
@@ -245,7 +249,10 @@ const BookPlumber = () => {
 
               <TouchableOpacity
                 style={[styles.uploadButton1, { backgroundColor: '#dd1a1a', borderWidth: 1, borderColor: '#F72E42', flex: 1 }]}
-                onPress={() => setUploadModalVisible(false)}
+                onPress={() => {
+                  setUploadModalVisible(false);
+                  navigation.navigate('ProductReceiptScreen');
+                }}
               >
                 <Text style={[styles.uploadButtonText, { color: '#fff' }]}>continue</Text>
               </TouchableOpacity>
@@ -254,7 +261,7 @@ const BookPlumber = () => {
         </View>
       </Modal>
 
-      {/* Book Now Button */}
+    
       <TouchableOpacity
         style={styles.bookButton}
         onPress={() => setModalVisible(true)}
@@ -286,7 +293,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  // NEW BUTTON STYLES
+
   toggleButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -472,7 +479,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: '#004d40',
+    borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -480,7 +487,7 @@ const styles = StyleSheet.create({
 
   modalText: {
     fontSize: 16,
-    color: '#004d40',
+    color: 'black',
   },
 
   uploadButton: {

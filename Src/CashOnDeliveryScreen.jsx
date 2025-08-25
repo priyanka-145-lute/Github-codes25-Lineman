@@ -54,7 +54,7 @@ export default function CashOnDeliveryScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Header */}
+       
         <View style={styles.header}>
           <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
             <Ionicons name="chevron-back" size={24} color="black" />
@@ -68,7 +68,7 @@ export default function CashOnDeliveryScreen() {
             <Ionicons
               name="home-outline"
               size={24}
-              color="#e0353d"
+              color="#F72E42"
               style={{ marginRight: 10 }}
             />
             <View>
@@ -80,9 +80,9 @@ export default function CashOnDeliveryScreen() {
             </View>
           </View>
 
-          {/* Table */}
+         
           <View style={styles.table}>
-            {/* Header */}
+          
             <View style={[styles.tableRow, styles.tableHeaderRow]}>
               <Text style={[styles.tableHeader, { flex: 0.5 }]}>#</Text>
               <Text style={[styles.tableHeader, { flex: 3 }]}>Products</Text>
@@ -109,7 +109,7 @@ export default function CashOnDeliveryScreen() {
               </Text>
             </View>
 
-            {/* Product Rows */}
+           
             {productList.map(item => (
               <View key={item.id} style={styles.tableRow}>
                 <Text style={[styles.tableCell, { flex: 0.5 }]}>{item.id}</Text>
@@ -132,7 +132,7 @@ export default function CashOnDeliveryScreen() {
               </View>
             ))}
 
-            {/* Summary Rows */}
+          
             <View style={[styles.tableRow, styles.summaryRow]}>
               <Text style={styles.tableFooter}>Final Amount</Text>
               <Text style={styles.tableFooterRight}>6,080</Text>
@@ -140,7 +140,7 @@ export default function CashOnDeliveryScreen() {
           </View>
         </ScrollView>
 
-        {/* Footer */}
+       
         <View style={styles.footer}>
           <View>
             <Text style={styles.totalText}>Rs. {finalAmount}</Text>
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   totalText: { fontSize: 16, fontWeight: '700' },
   totalSubText: { fontSize: 13, color: '#888' },
   ContinuewButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingHorizontal: 60,
     paddingVertical: 12,
     borderRadius: 6,

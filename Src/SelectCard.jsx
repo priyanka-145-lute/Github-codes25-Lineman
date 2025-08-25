@@ -10,15 +10,18 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SelectCard() {
+ 
   const [cardType, setCardType] = useState('Debit');
   const [cardNumber, setCardNumber] = useState('');
   const [validUntil, setValidUntil] = useState('');
   const [cvv, setCvv] = useState('');
   const [cardHolder, setCardHolder] = useState('');
   const [saveDetails, setSaveDetails] = useState(false);
-
+  const navigation = useNavigation();
   const toggleCardType = type => {
     setCardType(type);
   };
@@ -56,18 +59,23 @@ export default function SelectCard() {
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Header */}
+       
         <View style={styles.header}>
-          
-          <Text style={styles.headerTitle}>Debit/Credit card</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('PaymentOptionScreen')}>
+            <Icon name="chevron-back" size={24} color="#000" />
+          </TouchableOpacity>
+          <View style={styles.headerTitleContainer}>
+            <Text style={styles.headerTitle}>Debit/Credit card</Text>
+          </View>
         </View>
 
-        {/* Toggle Buttons */}
+      
         <View style={styles.toggleContainer}>
           <TouchableOpacity
             style={[
               styles.toggleButton,
               cardType === 'Debit' && styles.activeToggle,
+              { marginRight: 8 },
             ]}
             onPress={() => toggleCardType('Debit')}
           >
@@ -82,10 +90,7 @@ export default function SelectCard() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[
-              styles.toggleButton,
-              cardType === 'Credit' && styles.activeToggle,
-            ]}
+            style={[styles.toggleButton, cardType === 'Credit' && styles.activeToggle]}
             onPress={() => toggleCardType('Credit')}
           >
             <Text
@@ -99,7 +104,7 @@ export default function SelectCard() {
           </TouchableOpacity>
         </View>
 
-        {/* Card Number */}
+      
         <Text style={styles.label}>Card number</Text>
         <TextInput
           style={styles.input}
@@ -116,12 +121,12 @@ export default function SelectCard() {
           }}
         />
 
-        {/* Valid Until and CVV */}
-        <View style={[styles.row, { marginRight: 80 }]}>
-          <View style={[styles.halfInputContainer, { marginRight: 70 }]}>
+      
+        <View style={styles.row}>
+          <View style={[styles.halfInputContainer, { flex: 0.4, marginRight: 10 }]}>
             <Text style={styles.label}>Valid until</Text>
             <TextInput
-              style={styles.input}
+              style={styles.smallInput}
               placeholder="MM/YYYY"
               maxLength={7}
               value={validUntil}
@@ -131,10 +136,10 @@ export default function SelectCard() {
             />
           </View>
 
-          <View style={styles.halfInputContainer}>
+          <View style={[styles.halfInputContainer, { flex: 0.6, }]}>
             <Text style={styles.label}>CVV</Text>
             <TextInput
-              style={[styles.input, { textAlign: 'center' }]} // 👈 add this
+              style={[styles.smallInput, { textAlign: 'center' }]}
               placeholder="..."
               secureTextEntry
               maxLength={4}
@@ -145,7 +150,7 @@ export default function SelectCard() {
           </View>
         </View>
 
-        {/* Card Holder */}
+       
         <Text style={styles.label}>Card Holder</Text>
         <TextInput
           style={styles.input}
@@ -154,7 +159,7 @@ export default function SelectCard() {
           onChangeText={setCardHolder}
         />
 
-        {/* Checkbox */}
+      
         <TouchableOpacity
           style={styles.checkboxContainer}
           onPress={toggleSaveDetails}
@@ -163,13 +168,11 @@ export default function SelectCard() {
           <View style={[styles.checkbox, saveDetails && styles.checkedBox]}>
             {saveDetails && <Text style={styles.checkmark}>✓</Text>}
           </View>
-          <Text style={styles.checkboxLabel}>
-            Save details for future checkouts
-          </Text>
+          <Text style={styles.checkboxLabel}>Save details for future checkouts</Text>
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Footer Buttons */}
+   
       <View style={styles.footerButtons}>
         <TouchableOpacity style={styles.cancelButton}>
           <Text style={styles.cancelButtonText}>Cancel Payment</Text>
@@ -191,8 +194,15 @@ const styles = StyleSheet.create({
     paddingBottom: 140,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 20,
-     paddingTop: 20,
+    paddingTop: 20,
+  },
+  headerTitleContainer: {
+    flex: 1,
+   
+    marginLeft: 10, 
   },
   headerTitle: {
     fontSize: 18,
@@ -201,22 +211,21 @@ const styles = StyleSheet.create({
   toggleContainer: {
     flexDirection: 'row',
     marginBottom: 15,
-    padding: 20,
-   
   },
   toggleButton: {
     flex: 1,
     paddingVertical: 10,
-    
     backgroundColor: '#fff',
     alignItems: 'center',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
   },
   activeToggle: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
   },
   toggleText: {
-    color: '#E23744',
+    color: '#F72E42',
     fontWeight: '500',
   },
   activeToggleText: {
@@ -236,14 +245,23 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     marginBottom: 15,
     fontSize: 15,
+    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
+  },
+  smallInput: {
+    borderWidth: 1,
+    borderColor: '#bbb',
+    borderRadius: 6,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginBottom: 15,
+    fontSize: 15,
+    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  halfInputContainer: {
-    flex: 1,
-  },
+
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -258,9 +276,10 @@ const styles = StyleSheet.create({
     marginRight: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 3,
   },
   checkedBox: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     borderColor: '#E23744',
   },
   checkmark: {
@@ -282,19 +301,19 @@ const styles = StyleSheet.create({
   cancelButton: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#E23744',
+    borderColor: '#F72E42',
     paddingVertical: 12,
     borderRadius: 5,
     marginRight: 10,
     alignItems: 'center',
   },
   cancelButtonText: {
-    color: '#e0353d',
+    color: '#F72E42',
     fontWeight: '600',
   },
   payButton: {
     flex: 1,
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: 'center',

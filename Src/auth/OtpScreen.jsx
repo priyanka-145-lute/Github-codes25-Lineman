@@ -7,40 +7,46 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const OtpScreen = () => {
+    const navigation=useNavigation()
   const [otp, setOtp] = useState(['', '', '', '']);
   const inputRefs = useRef([]);
   
 
   const handleChange = (text, index) => {
+   
     if (!/^\d*$/.test(text)) return;
 
     const newOtp = [...otp];
     newOtp[index] = text;
     setOtp(newOtp);
 
-    // Auto focus next
+  
     if (text && index < 3) {
       inputRefs.current[index + 1].focus();
     }
   };
 
   const handleVerify = () => {
+     navigation.navigate('HomeScreen')
     const enteredOtp = otp.join('');
-    console.log('Entered OTP:', enteredOtp);
+   
+    console.log(`Entered OTP: ${enteredOtp}`);
+
 
     if (enteredOtp.length < 4) {
       alert('Please enter the full OTP.');
     } else {
       alert('OTP entered: ' + enteredOtp);
-      // Add backend call here
+    
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* Back icon */}
+      
       <TouchableOpacity  style={styles.backIcon}>
         <Icon name="chevron-back" size={24} color="#000" />
       </TouchableOpacity>
@@ -50,7 +56,7 @@ const OtpScreen = () => {
         We have sent you a 4 digit verification code on your email/mobile
       </Text>
 
-      {/* OTP input boxes */}
+    
       <View style={styles.otpContainer}>
         {otp.map((digit, index) => (
           <TextInput
@@ -65,12 +71,12 @@ const OtpScreen = () => {
         ))}
       </View>
 
-      {/* Verify button */}
+    
       <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
         <Text style={styles.verifyText}>Verify</Text>
       </TouchableOpacity>
 
-      {/* Static timer */}
+     
       <Text style={styles.timerText}>Resend OTP in 30s</Text>
     </View>
   );
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   verifyButton: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#F72E42',
     paddingVertical: 14,
     borderRadius: 10,
     alignItems: 'center',

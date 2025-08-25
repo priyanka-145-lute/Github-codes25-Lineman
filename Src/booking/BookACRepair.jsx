@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View,
@@ -11,8 +12,10 @@ import {
   Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const products = [
+  
   {
     id: '1',
     title: 'Fin Cleaning Spray',
@@ -48,6 +51,7 @@ const products = [
 ];
 
 const BookACRepair = () => {
+  const navigation=useNavigation()
   const [quantities, setQuantities] = useState(
     products.reduce((acc, item) => {
       acc[item.id] = 0;
@@ -72,13 +76,15 @@ const BookACRepair = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+   
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={22} color="#000" />
-        <Text style={styles.headerText}>Book a AC Repair</Text>
+         <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                  <Icon name="chevron-back" size={24} color="#000" />
+                </TouchableOpacity>
+        <Text style={styles.headerText}>Book an AC Repair</Text>
       </View>
 
-      {/* Search */}
+    
       <View style={styles.searchBar}>
         <Ionicons name="search-outline" size={18} color="#F72E42" style={{ marginRight: 8 }} />
         <TextInput
@@ -88,7 +94,7 @@ const BookACRepair = () => {
         />
       </View>
 
-      {/* Toggle Buttons */}
+    
       <View style={styles.toggleButtonsContainer}>
         <TouchableOpacity
           style={[
@@ -125,10 +131,10 @@ const BookACRepair = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Note */}
+      
       <Text style={styles.note}>Note : Worker will be available for 1 hour only</Text>
 
-      {/* Scrollable Product List */}
+     
       <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
         <View style={styles.cardContainer}>
           <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
@@ -136,7 +142,7 @@ const BookACRepair = () => {
               <View key={item.id} style={styles.productRow}>
                 <View style={styles.leftSection}>
                   <Text style={styles.productTitle}>{item.title}</Text>
-                  <Text style={[styles.stockText, { color: item.stock ? 'green' : 'red' }]}>
+                  <Text style={[styles.stockText, { color: item.stock ? 'green' : '#F72E42' }]}>
                     {item.stock ? 'In stock' : 'Out of stock'}
                   </Text>
                   {item.description && <Text style={styles.productDesc}>{item.description}</Text>}
@@ -185,7 +191,7 @@ const BookACRepair = () => {
         </View>
       </ScrollView>
 
-      {/* Modal for Upload Prompt */}
+    
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalBox}>
@@ -209,7 +215,7 @@ const BookACRepair = () => {
         </View>
       </Modal>
 
-      {/* Modal for Upload Image */}
+      
       <Modal animationType="slide" transparent={true} visible={uploadModalVisible} onRequestClose={() => setUploadModalVisible(false)}>
         <View style={styles.modalOverlay}>
           <View style={[styles.modalBox, { height: 300 }]}>
@@ -226,8 +232,10 @@ const BookACRepair = () => {
                 <Text style={styles.uploadButtonText1}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.uploadButton1, { backgroundColor: '#dd1a1a', borderWidth: 1, borderColor: '#F72E42', flex: 1 }]}
-                onPress={() => setUploadModalVisible(false)}
+                style={[styles.uploadButton1, { backgroundColor: '#F72E42', borderWidth: 1, borderColor: '#F72E42', flex: 1 }]}
+                onPress={() => {setUploadModalVisible(false);
+                  navigation.navigate('ProductReceiptScreen')
+                }}
               >
                 <Text style={[styles.uploadButtonText, { color: '#fff' }]}>Continue</Text>
               </TouchableOpacity>
@@ -236,7 +244,7 @@ const BookACRepair = () => {
         </View>
       </Modal>
 
-      {/* Book Now Button */}
+    
       <TouchableOpacity style={styles.bookButton} onPress={() => setModalVisible(true)}>
         <Text style={styles.bookButtonText}>Book now</Text>
       </TouchableOpacity>
@@ -460,7 +468,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: '#004d40',
+    borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -468,7 +476,7 @@ const styles = StyleSheet.create({
 
   modalText: {
     fontSize: 16,
-    color: '#004d40',
+    color: 'black',
   },
 
   uploadButton: {

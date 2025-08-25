@@ -11,6 +11,8 @@ import {
   Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const products = [
   {
@@ -49,15 +51,16 @@ const products = [
 ];
 
 const BookElectrician = () => {
+  const navigation = useNavigation();
   const [quantities, setQuantities] = useState(
     products.reduce((acc, item) => {
       acc[item.id] = 0;
       return acc;
-    }, {})
+    }, {}),
   );
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [uploadModalVisible, setUploadModalVisible] = useState(false); // Second modal state
+  const [uploadModalVisible, setUploadModalVisible] = useState(false); 
 
   const increment = id => {
     setQuantities(prev => ({ ...prev, [id]: prev[id] + 1 }));
@@ -74,7 +77,9 @@ const BookElectrician = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={22} color="#000" />
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Icon name="chevron-back" size={24} color="#000" />
+        </TouchableOpacity>
         <Text style={styles.headerText}>Book an Electrician</Text>
       </View>
 
@@ -83,7 +88,7 @@ const BookElectrician = () => {
         <Ionicons
           name="search-outline"
           size={18}
-          color="red"
+          color="#F72E42"
           style={{ marginRight: 8 }}
         />
         <TextInput
@@ -104,13 +109,21 @@ const BookElectrician = () => {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.cardContainer}>
-          <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}
+          >
             {products.map(item => (
               <View key={item.id} style={styles.productRow}>
                 {/* Left Content */}
                 <View style={styles.leftSection}>
                   <Text style={styles.productTitle}>{item.title}</Text>
-                  <Text style={[styles.stockText, { color: item.stock ? 'green' : 'red' }]}>
+                  <Text
+                    style={[
+                      styles.stockText,
+                      { color: item.stock ? 'green' : 'F72E42' },
+                    ]}
+                  >
                     {item.stock ? 'In stock' : 'Out of stock'}
                   </Text>
                   {item.description ? (
@@ -139,7 +152,9 @@ const BookElectrician = () => {
                           >
                             <Text style={styles.qtyText}>-</Text>
                           </TouchableOpacity>
-                          <Text style={styles.qtyCount}>{quantities[item.id]}</Text>
+                          <Text style={styles.qtyCount}>
+                            {quantities[item.id]}
+                          </Text>
                           <TouchableOpacity
                             onPress={() => increment(item.id)}
                             style={styles.qtyBtn}
@@ -204,7 +219,16 @@ const BookElectrician = () => {
             {/* Buttons container with row layout */}
             <View style={styles.buttonRow}>
               <TouchableOpacity
-                style={[styles.uploadButton1, { backgroundColor: '#fff',borderWidth:1,borderColor:'red', flex: 1, marginRight: 10 }]}
+                style={[
+                  styles.uploadButton1,
+                  {
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    borderColor: '#F72E42',
+                    flex: 1,
+                    marginRight: 10,
+                  },
+                ]}
                 onPress={() => {
                   // Your choose image logic here
                 }}
@@ -213,10 +237,23 @@ const BookElectrician = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={[styles.uploadButton1, { backgroundColor: '#dd1a1a',borderWidth:1,borderColor:'red', flex: 1 }]}
-                onPress={() => setUploadModalVisible(false)}
+                style={[
+                  styles.uploadButton1,
+                  {
+                    backgroundColor: '#F72E42',
+                    borderWidth: 1,
+                    borderColor: '#F72E42',
+                    flex: 1,
+                  },
+                ]}
+                onPress={() => {
+                  setUploadModalVisible(false); // ✅ Close modal
+                  navigation.navigate('ProductReceiptScreen'); // ✅ Navigate to another screen
+                }}
               >
-                <Text style={[styles.uploadButtonText,{color:'#fff'}]}>continue</Text>
+                <Text style={[styles.uploadButtonText, { color: '#fff' }]}>
+                  continue
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -320,7 +357,7 @@ const styles = StyleSheet.create({
 
   addButton: {
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#F72E42',
     borderRadius: 10,
     paddingVertical: 4,
     paddingHorizontal: 18,
@@ -328,7 +365,7 @@ const styles = StyleSheet.create({
   },
 
   addButtonText: {
-    color: 'red',
+    color: '#F72E42',
     fontSize: 14,
     fontWeight: '600',
     textAlign: 'center',
@@ -338,9 +375,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#F72E42',
     borderRadius: 8,
-    backgroundColor: 'red',
+    backgroundColor: '#F72E42',
   },
   qtyBtn: {
     paddingHorizontal: 5,
@@ -364,7 +401,7 @@ const styles = StyleSheet.create({
   productPrice: { fontSize: 14, color: '#000', fontWeight: '500' },
 
   bookButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#F72E42',
     padding: 16,
     alignItems: 'center',
     borderRadius: 8,
@@ -413,7 +450,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: '#004d40',
+    borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -421,12 +458,12 @@ const styles = StyleSheet.create({
 
   modalText: {
     fontSize: 16,
-    color: '#004d40',
+    color: 'black',
   },
 
   uploadButton: {
     flexDirection: 'row',
-    backgroundColor: 'red',
+    backgroundColor: '#F72E42',
     paddingVertical: 12,
     paddingHorizontal: 24,
     marginTop: 20,
@@ -440,9 +477,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-    uploadButton1: {
+  uploadButton1: {
     flexDirection: 'row',
-    backgroundColor: 'red',
+    backgroundColor: '#F72E42',
     paddingVertical: 12,
     paddingHorizontal: 24,
     marginTop: -10,
@@ -451,10 +488,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  uploadButtonText1:{
-    color:'red'
+  uploadButtonText1: {
+    color: '#F72E42',
   },
- 
+
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'center',

@@ -8,35 +8,59 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons'; // ✅ Normal vector icons
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native'; 
 
 const ProductReceiptScreen = () => {
+  const navigation = useNavigation();
   const products = [
-    { id: 1, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
-    { id: 2, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
-    { id: 3, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
-    { id: 4, name: 'Ambuja cement', price: '380rs/bag', qty: '4 Bag', amount: '1520' },
+    {
+      id: 1,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
+    {
+      id: 2,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
+    {
+      id: 3,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
+    {
+      id: 4,
+      name: 'Ambuja cement',
+      price: '380rs/bag',
+      qty: '4 Bag',
+      amount: '1520',
+    },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+    
       <View style={styles.header}>
         <Text style={styles.backArrow}>{'<'}</Text>
         <Text style={styles.headerTitle}>Details</Text>
-       
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.card}>
-          {/* Image */}
+          
           <Image
-          source={require('../assets/Tab.png')} // Replace with actual image
+            source={require('../assets/Tab.png')} 
             style={styles.mainImage}
           />
 
-          {/* Info */}
+       
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Service Required:</Text>
             <Text style={styles.infoValue}>Plumber</Text>
@@ -46,7 +70,6 @@ const ProductReceiptScreen = () => {
             <Text style={styles.infoValue}>16/07/2024</Text>
           </View>
 
-          {/* Product Table */}
           <View style={styles.receiptContainer}>
             <View style={styles.tableRowHeader}>
               <Text style={styles.tableCellHeader}>#</Text>
@@ -56,7 +79,7 @@ const ProductReceiptScreen = () => {
               <Text style={styles.tableCellHeader}>Amount</Text>
             </View>
 
-            {products.map((item) => (
+            {products.map(item => (
               <View key={item.id} style={styles.tableRow}>
                 <Text style={styles.tableCell}>{item.id}</Text>
                 <Text style={styles.tableCell}>{item.name}</Text>
@@ -74,11 +97,16 @@ const ProductReceiptScreen = () => {
             </View>
           </View>
 
-          {/* Delivery Address */}
+          
           <View style={styles.addressContainer}>
             <Text style={styles.addressLabel}>Delivery Address</Text>
             <View style={styles.addressRow}>
-              <Ionicons name="location-sharp" size={18} color="#ff3c3c" style={styles.icon} />
+              <Ionicons
+                name="location-sharp"
+                size={18}
+                color="#F72E42"
+                style={styles.icon}
+              />
               <View>
                 <Text style={styles.addressType}>Home</Text>
                 <Text style={styles.addressText}>
@@ -88,12 +116,33 @@ const ProductReceiptScreen = () => {
             </View>
           </View>
 
-          {/* Buttons */}
+       
           <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.cancelButton}>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              // onPress={() => {
+              //   if (service === 'Electrician') {
+              //     navigation.navigate('BookElectrician');
+              //   } else if (service === 'Painter') {
+              //     navigation.navigate('BookPainter');
+              //   } else if (service === 'Tiler') {
+              //     navigation.navigate('BookTiler');
+              //   } else if (service === 'Plumber') {
+              //     navigation.navigate('BookPlumber');
+              //   } else if (service === 'AC') {
+              //     navigation.navigate('BookAC');
+              //   } else {
+              //     navigation.goBack(); // fallback
+              //   }
+              // }}
+            >
               <Text style={styles.cancelText}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.payButton}>
+
+            <TouchableOpacity
+              style={styles.payButton}
+              onPress={() => navigation.navigate('PaymentOptionScreen')} 
+            >
               <Text style={styles.payText}>Pay now</Text>
             </TouchableOpacity>
           </View>
@@ -109,25 +158,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding:20,
+    padding: 20,
   },
   header: {
-    paddingVertical:5,
+    paddingVertical: 5,
     paddingHorizontal: 10,
 
     flexDirection: 'row',
     alignItems: 'center',
-   
   },
   backArrow: {
     fontSize: 22,
     fontWeight: 'bold',
   },
   headerTitle: {
-    
     fontSize: 18,
     fontWeight: '600',
-    marginLeft:15,
+    marginLeft: 15,
   },
 
   // scrollContainer: {
@@ -248,20 +295,20 @@ const styles = StyleSheet.create({
   cancelButton: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ff3c3c',
+    borderColor: '#F72E42',
     borderRadius: 12,
     paddingVertical: 12,
     marginRight: 8,
     alignItems: 'center',
   },
   cancelText: {
-    color: '#ff3c3c',
+    color: '#F72E42',
     fontWeight: 'bold',
     fontSize: 15,
   },
   payButton: {
     flex: 1,
-    backgroundColor: '#ff3c3c',
+    backgroundColor: '#F72E42',
     borderRadius: 12,
     paddingVertical: 12,
     marginLeft: 8,
